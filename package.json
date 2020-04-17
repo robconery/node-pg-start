@@ -1,0 +1,63 @@
+{
+  "name": "azure-starter",
+  "version": "0.0.0",
+  "private": true,
+  "bin": {
+    "azure-starter": "./bin/index.js"
+  },
+  "scripts": {
+    "start": "nodemon app.js",
+    "css": "postcss css/tailwind.css -o public/css/tailwind.css"
+  },
+  "dependencies": {
+    "accounting": "^0.4.1",
+    "axios": "^0.19.2",
+    "bcrypt": "^3.0.8",
+    "body-parser": "^1.19.0",
+    "commander": "^4.1.1",
+    "connect-flash": "^0.1.1",
+    "consola": "^2.11.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-session": "^1.17.0",
+    "http-errors": "~1.6.2",
+    "inquirer": "^7.0.5",
+    "massive": "^6.2.0",
+    "moment": "^2.24.0",
+    "morgan": "~1.9.0",
+    "nedb": "^1.8.0",
+    "nedb-promises": "^4.0.1",
+    "nodemailer": "^6.4.6",
+    "nodemon": "^2.0.3",
+    "passport": "^0.4.1",
+    "passport-github2": "^0.1.11",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-local": "^1.0.0",
+    "pg-promise": "^10.4.3",
+    "request": "^2.88.2",
+    "shortid": "^2.2.15",
+    "socket.io": "^2.3.0",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.7.4",
+    "postcss-cli": "^7.1.0",
+    "tailwindcss": "^1.2.0"
+  },
+  "azure": {
+    "resourceGroup": "rough-cloud-91",
+    "appName": "rough-cloud-91-web",
+    "location": "westus",
+    "planName": "rough-cloud-91-web-plan",
+    "runtime": "NODE|10.14",
+    "deployUser": "rough-cloud-91-web-deployer",
+    "dbServerName": "rough-cloud-91-pg",
+    "dbUser": "admin_937",
+    "webSku": "B1",
+    "dbSku": "B_Gen5_1",
+    "siteUrl": "https://rough-cloud-91-web.azurewebsites.net"
+  }
+}

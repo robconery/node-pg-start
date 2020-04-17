@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <%- include("partials/head.ejs")%>
+  <body class="text-gray-800 antialiased">
+    <%- include("partials/nav.ejs")%>
+    
+    <div class="main">
+      <section class="absolute w-full h-full" id="authApp">
+        <div class="absolute top-0 w-full h-full bg-gray-900"
+        style="background-image: url(/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;">
+      </div>
+      <div class="container mx-auto px-4 h-full">
+        <div class="flex content-center items-center justify-center h-full">
+          <% if(!user) { %>
+          <div class="w-full px-4 lg:w-4/12" >
+            <div
+              class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
+              id="loginModal">
+              <div class="rounded-t mb-0 px-6 py-6">
+                <div class="text-center mb-3">
+                  <h6 class="text-gray-600 text-sm font-bold">
+                    Sign in with
+                  </h6>
+                </div>
+                <div class="btn-wrapper text-center">
+                  <a class="bg-white text-gray-800 font-normal px-4 py-2 rounded outline-none mr-2 mb-1 uppercase shadow inline-flex items-center font-bold text-xs active:bg-gray-100 focus:outline-none hover:shadow-md"
+                    type="button" style="transition: all 0.15s ease 0s;" href="/auth/github" v-on:click.stop="github"><img class="w-5 mr-1"
+                      alt="..." src="/img/github.svg" />Github</a><a
+                    class="bg-white text-gray-800 font-normal px-4 py-2 rounded outline-none mr-1 mb-1 uppercase shadow inline-flex items-center font-bold text-xs active:bg-gray-100 focus:outline-none hover:shadow-md"
+                    type="button" style="transition: all 0.15s ease 0s;" href="/auth/google" v-on:click.stop="google"><img class="w-5 mr-1"
+                      alt="..." src="/img/google.svg" />Google</a>
+                </div>
+                <hr class="mt-6 border-b-1 border-gray-400" />
+              </div>
+              <div class="flex-auto px-4 py-10 pt-0 lg:px-10">
+
+                <form class="loginBox" v-if="mode=='login'">
+                  <div class="text-gray-500 text-center mb-3 font-bold">
+                     <small>Or sign in with credentials</small>
+                  </div>
+                  <div class="relative w-full mb-3">
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      for="grid-password">Email</label><input
+                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
+                      type="email" placeholder="Email" style="transition: all 0.15s ease 0s;" v-model="email" />
+                  </div>
+                  <div class="relative w-full mb-3">
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      for="grid-password">Password</label>
+
+                      <input
+                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
+                      type="password" placeholder="Password" style="transition: all 0.15s ease 0s;"
+                      v-model="password" />
+                  </div>
+                  <div>
+                    <label class="inline-flex items-center cursor-pointer"><input
+                        class="form-checkbox text-gray-800 ml-1 w-5 h-5" id="customCheckLogin" type="checkbox"
+                        style="transition: all 0.15s ease 0s;" /><span
+                        class="ml-2 text-sm font-semibold text-gray-700">Remember me</span></label>
+                  </div>
+
+                  <div class="text-center mt-6">
+                    <button
+                      class="bg-gray-900 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow outline-none mr-1 mb-1 w-full active:bg-gray-700 hover:shadow-lg focus:outline-none"
+                      type="button" style="transition: all 0.15s ease 0s;" v-on:click="logUserIn">
+                      Sign In
+                    </button>
+                  </div>
+
+                </form>
+
+
+                <form class="registerBox" v-if="mode=='registration'">
+                  <div class="text-gray-500 text-center mb-3 font-bold">
+                     <small>Create an old-school account</small>
+                  </div>
+                  <div class="relative w-full mb-3">
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      for="grid-password">Name</label><input
+                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
+                      type="email" placeholder="Your name" style="transition: all 0.15s ease 0s;" v-model="name" />
+                  </div>
+                  <div class="relative w-full mb-3">
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      for="grid-password">Email</label><input
+                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
+                      type="email" placeholder="Email" style="transition: all 0.15s ease 0s;" v-model="email" />
+                  </div>
+                  <div class="relative w-full mb-3">
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      for="grid-password">Password</label><input
+                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
+                      type="password" placeholder="Password" style="transition: all 0.15s ease 0s;"
+                      v-model="password" />
+                  </div>
+                  <div></div>
+                  <div class="relative w-full mb-3">
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Confirm
+                      Password</label><input
+                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
+                      type="password" placeholder="Confirm Password" style="transition: all 0.15s ease 0s;"
+                      v-model="password_confirmation" />
+                  </div>
+                  <div class="text-center mt-6">
+                    <button
+                      class="bg-gray-900 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow outline-none mr-1 mb-1 w-full active:bg-gray-700 hover:shadow-lg focus:outline-none"
+                      type="button" style="transition: all 0.15s ease 0s;" v-on:click="registerUser">
+                      Register
+                    </button>
+                  </div>
+                </form>
+
+
+                <form class="loginBox" v-if="mode=='forgot'">
+                  <div class="text-gray-500 text-center mb-3">
+                     <p class="font-bold">Forgot your password?</p>
+                     <p>No problem, it happens. Add your email below and we'll send you a link...</p>
+                  </div>
+                  <div class="relative w-full mb-3">
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      for="grid-password">Email</label><input
+                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
+                      type="email" placeholder="Email" style="transition: all 0.15s ease 0s;" v-model="email" />
+                  </div>
+                  <div class="text-center mt-6">
+                    <button
+                      class="bg-gray-900 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow outline-none mr-1 mb-1 w-full active:bg-gray-700 hover:shadow-lg focus:outline-none"
+                      type="button" style="transition: all 0.15s ease 0s;" @click="sendReminder">
+                      Remind Me!
+                    </button>
+                  </div>
+
+                </form>
+
+                <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-700" v-if="errorMessage">
+
+                  <span class="inline-block align-middle mr-8">
+                    {{errorMessage}}
+                  </span>
+
+                </div>
+
+                <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-700" v-if="successMessage">
+
+                  <span class="inline-block align-middle mr-8">
+                    {{successMessage}}
+                  </span>
+
+                </div>
+
+                <div class="text-center mt-3">
+
+                  <a class="text-black-300" href="#" v-on:click.stop="changeMode('registration')" v-if="mode=='login'"><small>Create new account</small></a>
+                  <a class="text-black-300" href="#" v-on:click.stop="changeMode('login')" v-if="mode=='registration' || mode=='forgot'"><small>Login instead</small></a>
+                  <a class="text-black-300" href="#" v-on:click.stop="changeMode('forgot')" v-if="mode=='registration' || mode=='login'"><small> | Forgot Password?</small></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% } else { %>
+          <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-teal-500">
+
+            <span class="inline-block align-middle mr-8">
+              <b class="capitalize">You're in!</b> Welcome. So much time and so little to do...
+              <a href="/profile" type="button" class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3" >Profile</a>
+            </span>
+
+          </div>
+
+          <% } %>
+        </div>
+      </div>
+      </section>
+      <footer class="absolute w-full bottom-0 bg-gray-900 pb-6">
+        <div class="container mx-auto px-4">
+          <hr class="mb-6 border-b-1 border-gray-700" />
+          <div class="flex flex-wrap items-center justify-center md:justify-between">
+            <div class="w-full px-4 md:w-4/12">
+              <div class="text-sm text-white font-semibold py-1">
+                Copyright © 2019<a class="text-white text-sm font-semibold py-1 hover:text-gray-400"
+                  href="https://www.creative-tim.com">Creative Tim</a>
+              </div>
+            </div>
+            <div class="w-full px-4 md:w-8/12">
+              <ul class="flex flex-wrap list-none justify-center md:justify-end">
+                <li>
+                  <a class="text-white text-sm font-semibold block py-1 px-3 hover:text-gray-400"
+                    href="https://www.creative-tim.com">Creative Tim</a>
+                </li>
+                <li>
+                  <a class="text-white text-sm font-semibold block py-1 px-3 hover:text-gray-400"
+                    href="https://www.creative-tim.com/presentation">About Us</a>
+                </li>
+                <li>
+                  <a class="text-white text-sm font-semibold block py-1 px-3 hover:text-gray-400"
+                    href="http://blog.creative-tim.com">Blog</a>
+                </li>
+                <li>
+                  <a class="text-white text-sm font-semibold block py-1 px-3 hover:text-gray-400"
+                    href="https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md">MIT
+                    License</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <%- include("partials/footer_scripts.ejs")%>
+    <script>
+      var app = new Vue({ 
+        el: '#authApp',
+        data: {
+          name: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
+          loginError: null,
+          regError: null,
+          errorMessage: null,
+          showRegistration: false,
+          sending: false,
+          mode: "login",
+          successMessage: null
+        },
+        methods: {
+          changeMode(mode){
+            this.errorMessage = null;
+            this.successMessage = null;
+            this.mode = mode;
+          },
+          sendReminder: function(){
+            $.post("/auth/send-reset", {
+              email: this.email
+            }).done(res => {
+              console.log(res);
+              if(res.success){
+                this.successMessage = res.message;
+              }else{
+                this.errorMessage = res.message;
+              }
+            }).fail(err => {
+              console.error(err);
+            })
+          },
+          logUserIn: function () {
+            $.post("/auth/login", {
+              username: this.email,
+              password: this.password
+            }).done(res =>{
+              if(res.success) {
+                location.reload();
+              } else {
+                this.loginError = res.message;
+                this.shakeModal()
+              }
+            }).fail(err => {
+
+              this.loginError = "Invalid username or password";
+              this.shakeModal()
+            });
+          },
+          registerUser: function () {
+            $.post("/auth/register", {
+              name: this.name,
+              email: this.email,
+              password: this.password,
+              password_confirmation: this.password_confirmation
+            }).done(res => {
+              console.log(res);
+              if(res.success) location.reload();
+              else{
+                this.errorMessage = res.message;
+                this.shakeModal();
+              }
+              //location.reload();
+            }).fail(err => {
+              this.errorMessage = "There was a problem registering you :(";
+              this.shakeModal();
+            })
+          }
+        }
+      })
+    </script>
+
+    
+  </body>
+</html>

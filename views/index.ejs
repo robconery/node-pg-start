@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<%-include("partials/head.ejs") %>
+<body class="text-gray-800 antialiased">
+  <%- include("partials/nav.ejs") %>
+  <div class="main">
+    <div class="relative pt-16 pb-32 flex content-center items-center justify-center" style="min-height: 75vh;">
+      <div class="absolute top-0 w-full h-full bg-center bg-cover">
+        <span class="w-full h-full absolute bg-gray-900" id="blackOverlay"></span></div>
+      <div class="container relative">
+        <div class="flex flex-wrap">
+          <div class="w-full px-4 lg:w-6/12">
+            <div class="pr-12">
+              <h1 class="text-white font-semibold text-5xl">The Tailwind Traders Starter Site for NodeJS and PostgreSQL.</h1>
+              <p class="mt-4 text-lg text-gray-300">This app is a reasonable starting point for Node/PostgreSQL people
+                who
+                want a leg up. It includes a simple ActiveRecord JSONB document system, membership, and a CLI.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
+        style="height: 70px; transform: translateZ(0px);"><svg class="absolute bottom-0 overflow-hidden"
+          xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0"
+          y="0">
+          <polygon class="text-gray-300 fill-current" points="2560 0 2560 100 0 100"></polygon>
+        </svg></div>
+    </div>
+    <section class="pb-20 bg-gray-300 -mt-24">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap">
+          <div class="pt-6 w-full px-4 text-center lg:pt-12 md:w-4/12">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+              <div class="px-4 py-5 flex-auto">
+                <div
+                  class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                  <i class="fas fa-award"></i></div>
+                <h6 class="text-xl font-semibold">Simple Deployment</h6>
+                <p class="mt-2 mb-4 text-gray-600">A build in CLI helps you get this thing up and running quickly on Azure.</p>
+              </div>
+            </div>
+          </div>
+          <div class="w-full px-4 text-center md:w-4/12">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+              <div class="px-4 py-5 flex-auto">
+                <div
+                  class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
+                  <i class="fas fa-retweet"></i></div>
+                <h6 class="text-xl font-semibold">Authentication Built In</h6>
+                <p class="mt-2 mb-4 text-gray-600">We've added a simple flow that you can augment as needed.</p>
+              </div>
+            </div>
+          </div>
+          <div class="pt-6 w-full px-4 text-center md:w-4/12">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+              <div class="px-4 py-5 flex-auto">
+                <div
+                  class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
+                  <i class="fas fa-fingerprint"></i></div>
+                <h6 class="text-xl font-semibold">Written in Simple Node with Express</h6>
+                <p class="mt-2 mb-4 text-gray-600">Our goal is to keep this a <i>starter site</i>, so we've kept our opinions to a minimum.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center mt-32">
+          <div class="w-full px-4 mr-auto ml-auto md:w-5/12">
+            <div
+              class="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
+              <i class="fas fa-user-friends text-xl"></i></div>
+            <h3 class="text-3xl mb-2 font-semibold leading-normal">Tailwind Traders and Tailwind CSS</h3>
+            <p class="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
+              There are so many CSS frameworks to choose from and we had to pick one so we decided to go with Tailwind CSS. The utility-first aspect of 
+              Tailwind CSS as well as the amazing support for intellisense in VS Code made the decision simple. You can replace however you like!
+            </p>
+            <p class="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
+              We've also leveraged Creative Tim's starter template, which is free for the community.
+            </p><a class="font-bold text-gray-800 mt-8"
+              href="https://www.creative-tim.com/framework/tailwind-starter-kit">Check Tailwind Starter Kit!</a>
+          </div>
+          <div class="w-full px-4 mr-auto ml-auto md:w-4/12">
+            <div
+              class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-pink-600">
+              <img class="w-full align-middle rounded-t-lg" alt="..."
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1051&amp;q=80">
+              <blockquote class="relative p-8 mb-4"><svg class="absolute left-0 w-full block" preserveAspectRatio="none"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 583 95" style="height: 95px; top: -94px;">
+                  <polygon class="text-pink-600 fill-current" points="-30,95 583,95 583,65"></polygon>
+                </svg>
+                <h4 class="text-xl font-bold text-white">Top Notch Services</h4>
+                <p class="text-md font-light mt-2 text-white">The Arctic Ocean freezes every winter and much of the
+                  sea-ice then thaws every summer, and that process will
+                  continue whatever happens.</p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pb-20 relative block bg-gray-900">
+      <div class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+        style="height: 80px; transform: translateZ(0px);"><svg class="absolute bottom-0 overflow-hidden"
+          xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0"
+          y="0">
+          <polygon class="text-gray-900 fill-current" points="2560 0 2560 100 0 100"></polygon>
+        </svg></div>
+      <div class="container mx-auto px-4 lg:pt-24 lg:pb-64">
+        <div class="flex flex-wrap text-center justify-center">
+          <div class="w-full px-4 lg:w-6/12">
+            <h2 class="text-4xl font-semibold text-white">Built with PostgreSQL</h2>
+            <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
+              Deciding between a JSON document system and a relational system can be tough... so we thought "why not have both". We made a simple, MongoDB Client-compatible 
+              PostgreSQL library that you can extend as you need.
+            </p>
+            <p>Why did we do that?</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap mt-12 justify-center">
+          <div class="w-full px-4 text-center lg:w-3/12">
+            <div
+              class="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+              <i class="fas fa-medal text-xl"></i></div>
+            <h6 class="text-xl mt-5 font-semibold text-white">Extreme Speed</h6>
+            <p class="mt-2 mb-4 text-gray-500">
+              PostgreSQL is extremely fast and scalable with ACID guarantees for your data. Want to make sure you have an email address in that document? No problem 
+              just create a constraint.
+            </p>
+          </div>
+          <div class="w-full px-4 text-center lg:w-3/12">
+            <div
+              class="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+              <i class="fas fa-poll text-xl"></i></div>
+            <h5 class="text-xl mt-5 font-semibold text-white">Full Text Search</h5>
+            <p class="mt-2 mb-4 text-gray-500">
+              PostgreSQL has full text search built right in. You can use it seemlessly with JSON document storage as well.
+            </p>
+          </div>
+          <div class="w-full px-4 text-center lg:w-3/12">
+            <div
+              class="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+              <i class="fas fa-lightbulb text-xl"></i></div>
+            <h5 class="text-xl mt-5 font-semibold text-white">Super Scalable Hosting with Azure</h5>
+            <p class="mt-2 mb-4 text-gray-500">
+              Have a look at the CLI tool - you can get this site up and running on Azure in less than 10 minutes, ready to globally scale.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <%- include("partials/footer_main.ejs") %>
+  </div>
+</body>
+
+</html>

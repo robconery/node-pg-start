@@ -1,0 +1,31 @@
+<script>
+  function toggleNavbar(collapseID) {
+    document.getElementById(collapseID).classList.toggle("hidden");
+    document.getElementById(collapseID).classList.toggle("block");
+  }
+  /* Function for dropdowns */
+  function openDropdown(event, dropdownID) {
+    let element = event.target;
+    while (element.nodeName !== "A") {
+      element = element.parentNode;
+    }
+    var popper = new Popper(element, document.getElementById(dropdownID), {
+      placement: "bottom-end"
+    });
+    document.getElementById(dropdownID).classList.toggle("hidden");
+    document.getElementById(dropdownID).classList.toggle("block");
+  }
+
+  toastr.options = {
+    closeButton: true,
+    positionClass: "toast-top-center",
+    showDuration: "300",
+    hideDuration: "1000",
+    timeOut: "5000",
+    extendedTimeOut: "1000",
+    showEasing: "swing",
+    hideEasing: "linear",
+    showMethod: "fadeIn",
+    hideMethod: "fadeOut"
+  };
+</script>
