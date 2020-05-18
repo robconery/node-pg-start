@@ -40,7 +40,7 @@ class RemotePG{
     await this.db.any(`create table if not exists users(
       id bigserial primary key,
       key text not null default gen_random_uuid(),
-      doc jsonb not null,
+      body jsonb not null,
       search tsvector,
       created_at timestamp not null default now(),
       updated_at timestamp not null default now()
