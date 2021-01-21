@@ -39,7 +39,7 @@
     "pg-promise": "^10.4.3",
     "request": "^2.88.2",
     "shortid": "^2.2.15",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
