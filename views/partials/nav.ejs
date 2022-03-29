@@ -86,13 +86,19 @@
 
 <% if(errors.length > 0) { %>
   <script>
-      const errors = "!{errors.join(",")}";
+      const errors = "<%-errors.join(',')%>";
       toastr["error"](errors, "Oops - there's a problem")
   </script>
 <%}%>
 <% if(info.length > 0) {%>
   <script>
-        const info = "!{info.join(",")}";
+        const info = "<%-info.join(',')%>";
         toastr["info"](info, "Yay!");
+  </script>
+<%}%>
+<% if(success.length > 0) {%>
+  <script>
+        const success = "<%-success.join(',')%>";
+        toastr["success"](success, "Yay!");
   </script>
 <%}%>

@@ -2,7 +2,11 @@
 const nodemailer = require("nodemailer");
 const ejs = require("ejs");
 const path = require("path");
+const fs = require("fs");
 let daemon = null;
+var md = require('markdown-it')();
+const {User} = require("../lib/models/");
+const settings = require("../package.json");
 
 exports.init = function({host, user, password}){
   daemon = nodemailer.createTransport({
@@ -26,16 +30,21 @@ require("dotenv").config();
 
 //templates - you could make this configurable but... eh
 const templateDir = path.resolve(__dirname, "templates");
-const templates = {
-  resetPassword: path.resolve(templateDir, "reset.ejs")
-}
 
+const renderMarkdownTemplate = async function(template, data = {}){
+  const templateFile = path.resolve(templateDir, template);
+  const markdown = fs.readFileSync(templateFile, "utf8");
+  // we want to be able to use EJS with markdown, so do that first
+  const renderOne = ejs.render(markdown, data);
+  //now that we have good markdown, push to HTML
+  return md.render(renderOne);
+}
 //a generalized send routine
 const sendEmail = function(subject, to, content){
   //don't send test emails!
   if(process.env.NODE_ENV !== "test"){
     return daemon.sendMail({
-      from: '"Rob Conery 😺" <rob@test.io>', // sender address - obvs change
+      from: '"Rob Conery 😺" <robconery@gmail.com>', // sender address - obvs change
       to: to, // list of receivers
       subject: subject, // Subject line
       html: content
@@ -43,19 +52,9 @@ const sendEmail = function(subject, to, content){
   }
 }
 
-//the one exportable method so we can centralize email sending
-exports.sendPasswordReminder = async function({email, link}){
-  
-  //this is the data for the template... obvs change it...
-  const data = {
-    name: email,
-    from: "Rob Conery",
-    title: "Chief Chicken Master",
-    link: link,
-    picture: "https://en.gravatar.com/userimage/109037453/87cb97708d5d8620cd79170166ec4c63.png?size=200"
-  };
+exports.sendMagicLink = async function(email, link){
 
-  const html = await ejs.renderFile(templates.resetPassword, data);
-  return sendEmail("Password Reset Request",email,  html);
-
+    //the link will be an absolute link to the auth
+    const body = await renderMarkdownTemplate("magic_link.md", {link: link});
+    await sendEmail(`Login to ${settings.name}`, email, body);
 }

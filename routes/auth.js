@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require("passport");
-const Auth = require("../lib/auth");
+const {User} = require("../lib/models/");
 const Mailer = require("../mail");
 
 
@@ -10,43 +10,55 @@ router.get("/login", function(req,res){
   res.render('login');
 });
 
-router.post("/login", async function(req, res){
-  //we really don't need Passport cruft for this
-  //just see if the user can authenticate and then
-  //throw onto session
-  const credentials = req.body;
-  const result = await Auth.authenticate({email: credentials.username, password: credentials.password});
-  if(result.success){
-    req.session.user = result.user.summary();
-    res.json({success: true, user: req.session.user})
-  }else{
-    res.json({success: false, message: "Invalid login or password"})
-  }
+router.post("/login", async function(req,res){
+  const email = req.body.email;
+  const rootUrl = `${req.protocol}://${req.get("host")}/auth/validate`;
+  if(email){
+    //do we have this user? if not, we could create an account for them on the fly
+    //or we force them to register. this is up to your needs
+    
+    let user = await User.findOne({where: {email: email}});
+    if(!user){
+      //let's be nice and register them shall we?
+      //change this as you need
+      console.log("User doesn't exist... creating...");
+      user = await User.create({email: email})
+    }
+    await user.setLoginToken();
+    const link = `${rootUrl}/${user.login_token}`;
+    try{
+      await Mailer.sendMagicLink(user.email,link);
+      req.flash("success","Email is on its way - you should see it in just a minute.");
+    }catch(err){
+      console.log(err);
+      req.flash("errors","There was a problem sending this email. The server might not be responding...");       
+    }
 
+  }else{
+    req.flash("errors","Please give an email... thanks...");
+  }
+  console.log("Redirecting...");
+  res.redirect("/auth/login");
 });
 
-router.post("/register", async function(req,res){
-
-  const userParams = req.body;
-
-  //make sure the pass/confirm are the same
-  if(userParams.password !== userParams.password_confirmation) return res.json({success: false, error: "Passwords don't match"});
-
-  try{
-
-    //this will throw if an assert fails
-    const newUser = await Auth.register({
-      name: userParams.name,
-      email: userParams.email,
-      password: userParams.password
-    });
-
-    //drop user on the session which will effectively log them in
-    req.session.user = newUser.summary();
-    
-    res.json({success: true, message: "User registered and logged in"});
-  }catch(err){
-    res.json({success: false, message: err.message})
+router.get("/validate/:token", async function(req,res){
+  const token = req.params.token;
+  if(token){
+    const {success, user} = await User.tokenLogin(req.params.token);
+    if(success){
+      req.flash("info","Welcome back - you're logged in...");
+      req.user = user;
+      req.session.user = user;
+      req.session.save();
+      const redirectTo = "/";
+      
+      res.redirect(redirectTo);
+    }else{
+      req.flash("errors","That token is invalid or expired.");
+      res.redirect("/auth/login");
+    }
+  }else{
+    res.redirect("/auth/login");
   }
 });
 
@@ -58,61 +70,21 @@ router.get("/logout", function(req,res){
 });
 
 
-//this route shows the reset screen which REQUIRES a valid token
-router.get("/reset-password", async function(req, res){
-  const token = req.query.token;
-  if(!token) res.redirect("/auth/login");
-  
-  //make sure the token is valid
-  const result = await Auth.validateReset(token);
-  if(result.success){
-    //don't pass the user back entirely it'll confuse the page
-    res.render("reset_password", {success: true, token: result.user.resetToken});
-  }else{
-    req.flash("error", "This token is expired")
-    res.render("reset_password", {success: false, token: ""});
-  }
-});
-
-router.post("/reset-password", async function(req, res){
-  const {token, password, confirm} = req.body;
-  if(!token) res.redirect("/auth/login");
-  const result = await Auth.resetPasswordWithToken({token, password, confirm});
-  if(result.success){
-    //log them in
-    req.session.user = result.user.summary();
-    res.json({success: true, message: "Your password has been changed successfully and you're now logged in!"});
-  }else{
-    res.json({success: true, message: result.error});
-  }
-});
-
-router.post("/send-reset", async function(req, res){
-
-  const email = req.body.email;
-  if(email){
-    const user = await Auth.prepareReset(email);
-    if(user){
-      const thisUrl = `${req.protocol}://${req.hostname}/auth/reset-password?token=${user.resetToken}`;
-      Mailer.sendPasswordReminder({email: user.email, link: thisUrl})
-      res.json({success: true, message: "Reminder email is off to you! Check your spam messages if you don't get it soon."})
-    }else{
-      res.json({success: false, message: "That email is not in our system"})
-    }
-  }else{
-    res.json({success: false, message: "Need an email..."})
-  }
-});
-
-
-router.get('/google', passport.authenticate('google', { 
+router.get('/google', (req,res,next) => {
+  passport.authenticate('google', { 
+    callbackURL: `${req.protocol}://${req.get("host")}/auth/google/callback`,
     scope: [
     'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/userinfo.email'
-  ] 
-}));
+    ] 
+  })(req, res, next)
+});
 
-router.get('/github', passport.authenticate('github'));
+router.get('/github', (req, res, next) => {
+  passport.authenticate('github', {
+    callbackURL: `${req.protocol}://${req.get("host")}/auth/github/callback`,
+  })(req, res, next)
+});
 
 
 router.get('/google/callback', passport.authenticate('google'), function(req,res){
@@ -128,7 +100,6 @@ router.get('/github/callback', passport.authenticate('github'), function(req,res
   req.flash("success","Successfully logged in");
   res.redirect(redirectTo);
 });
-
 
 
 module.exports = router;

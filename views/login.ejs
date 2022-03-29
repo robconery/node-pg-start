@@ -34,127 +34,30 @@
               </div>
               <div class="flex-auto px-4 py-10 pt-0 lg:px-10">
 
-                <form class="loginBox" v-if="mode=='login'">
+                <form class="loginBox" method=post action="/auth/login">
                   <div class="text-gray-500 text-center mb-3 font-bold">
-                     <small>Or sign in with credentials</small>
+                     <small>Or we'll send you an email with a magic link</small>
                   </div>
                   <div class="relative w-full mb-3">
                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                       for="grid-password">Email</label><input
+                      name="email"
                       class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
-                      type="email" placeholder="Email" style="transition: all 0.15s ease 0s;" v-model="email" />
+                      type="email" placeholder="Email" style="transition: all 0.15s ease 0s;" />
                   </div>
-                  <div class="relative w-full mb-3">
-                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password">Password</label>
-
-                      <input
-                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
-                      type="password" placeholder="Password" style="transition: all 0.15s ease 0s;"
-                      v-model="password" />
-                  </div>
-                  <div>
-                    <label class="inline-flex items-center cursor-pointer"><input
-                        class="form-checkbox text-gray-800 ml-1 w-5 h-5" id="customCheckLogin" type="checkbox"
-                        style="transition: all 0.15s ease 0s;" /><span
-                        class="ml-2 text-sm font-semibold text-gray-700">Remember me</span></label>
-                  </div>
-
                   <div class="text-center mt-6">
                     <button
+                      type="submit"
                       class="bg-gray-900 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow outline-none mr-1 mb-1 w-full active:bg-gray-700 hover:shadow-lg focus:outline-none"
-                      type="button" style="transition: all 0.15s ease 0s;" v-on:click="logUserIn">
+                      type="button" style="transition: all 0.15s ease 0s;">
                       Sign In
                     </button>
                   </div>
 
                 </form>
-
-
-                <form class="registerBox" v-if="mode=='registration'">
-                  <div class="text-gray-500 text-center mb-3 font-bold">
-                     <small>Create an old-school account</small>
-                  </div>
-                  <div class="relative w-full mb-3">
-                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password">Name</label><input
-                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
-                      type="email" placeholder="Your name" style="transition: all 0.15s ease 0s;" v-model="name" />
-                  </div>
-                  <div class="relative w-full mb-3">
-                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password">Email</label><input
-                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
-                      type="email" placeholder="Email" style="transition: all 0.15s ease 0s;" v-model="email" />
-                  </div>
-                  <div class="relative w-full mb-3">
-                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password">Password</label><input
-                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
-                      type="password" placeholder="Password" style="transition: all 0.15s ease 0s;"
-                      v-model="password" />
-                  </div>
-                  <div></div>
-                  <div class="relative w-full mb-3">
-                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Confirm
-                      Password</label><input
-                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
-                      type="password" placeholder="Confirm Password" style="transition: all 0.15s ease 0s;"
-                      v-model="password_confirmation" />
-                  </div>
-                  <div class="text-center mt-6">
-                    <button
-                      class="bg-gray-900 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow outline-none mr-1 mb-1 w-full active:bg-gray-700 hover:shadow-lg focus:outline-none"
-                      type="button" style="transition: all 0.15s ease 0s;" v-on:click="registerUser">
-                      Register
-                    </button>
-                  </div>
-                </form>
-
-
-                <form class="loginBox" v-if="mode=='forgot'">
-                  <div class="text-gray-500 text-center mb-3">
-                     <p class="font-bold">Forgot your password?</p>
-                     <p>No problem, it happens. Add your email below and we'll send you a link...</p>
-                  </div>
-                  <div class="relative w-full mb-3">
-                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password">Email</label><input
-                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full focus:outline-none focus:shadow-outline"
-                      type="email" placeholder="Email" style="transition: all 0.15s ease 0s;" v-model="email" />
-                  </div>
-                  <div class="text-center mt-6">
-                    <button
-                      class="bg-gray-900 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow outline-none mr-1 mb-1 w-full active:bg-gray-700 hover:shadow-lg focus:outline-none"
-                      type="button" style="transition: all 0.15s ease 0s;" @click="sendReminder">
-                      Remind Me!
-                    </button>
-                  </div>
-
-                </form>
-
-                <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-700" v-if="errorMessage">
-
-                  <span class="inline-block align-middle mr-8">
-                    {{errorMessage}}
-                  </span>
-
-                </div>
-
-                <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-700" v-if="successMessage">
-
-                  <span class="inline-block align-middle mr-8">
-                    {{successMessage}}
-                  </span>
-
-                </div>
-
                 <div class="text-center mt-3">
-
-                  <a class="text-black-300" href="#" v-on:click.stop="changeMode('registration')" v-if="mode=='login'"><small>Create new account</small></a>
-                  <a class="text-black-300" href="#" v-on:click.stop="changeMode('login')" v-if="mode=='registration' || mode=='forgot'"><small>Login instead</small></a>
-                  <a class="text-black-300" href="#" v-on:click.stop="changeMode('forgot')" v-if="mode=='registration' || mode=='login'"><small> | Forgot Password?</small></a>
-                </div>
+                  <a class="text-black-300" href="/auth/register"><small>Create new account</small></a>
+                 </div>
               </div>
             </div>
           </div>
@@ -209,82 +112,6 @@
       </footer>
     </div>
     <%- include("partials/footer_scripts.ejs")%>
-    <script>
-      var app = new Vue({ 
-        el: '#authApp',
-        data: {
-          name: "",
-          email: "",
-          password: "",
-          password_confirmation: "",
-          loginError: null,
-          regError: null,
-          errorMessage: null,
-          showRegistration: false,
-          sending: false,
-          mode: "login",
-          successMessage: null
-        },
-        methods: {
-          changeMode(mode){
-            this.errorMessage = null;
-            this.successMessage = null;
-            this.mode = mode;
-          },
-          sendReminder: function(){
-            $.post("/auth/send-reset", {
-              email: this.email
-            }).done(res => {
-              console.log(res);
-              if(res.success){
-                this.successMessage = res.message;
-              }else{
-                this.errorMessage = res.message;
-              }
-            }).fail(err => {
-              console.error(err);
-            })
-          },
-          logUserIn: function () {
-            $.post("/auth/login", {
-              username: this.email,
-              password: this.password
-            }).done(res =>{
-              if(res.success) {
-                location.reload();
-              } else {
-                this.loginError = res.message;
-                this.shakeModal()
-              }
-            }).fail(err => {
 
-              this.loginError = "Invalid username or password";
-              this.shakeModal()
-            });
-          },
-          registerUser: function () {
-            $.post("/auth/register", {
-              name: this.name,
-              email: this.email,
-              password: this.password,
-              password_confirmation: this.password_confirmation
-            }).done(res => {
-              console.log(res);
-              if(res.success) location.reload();
-              else{
-                this.errorMessage = res.message;
-                this.shakeModal();
-              }
-              //location.reload();
-            }).fail(err => {
-              this.errorMessage = "There was a problem registering you :(";
-              this.shakeModal();
-            })
-          }
-        }
-      })
-    </script>
-
-    
   </body>
 </html>
