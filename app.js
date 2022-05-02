@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require("express-session");
+const redis = require('ioredis');
+const connectRedis = require('connect-redis');
 const flash = require('express-flash');
 require("dotenv").config();
 const bodyParser = require("body-parser");
@@ -28,15 +30,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 
 const expires = 1000 * 60 * 60 * 24 * 14;
-const sessionStore = new session.MemoryStore;
-
-app.use(session({ 
-  secret: 'burke burke burke', 
-  cookie: { maxAge: expires },
-  resave: true,
-  saveUninitialized: true,
-  store: sessionStore
-}));
+const RedisStore = connectRedis(session)
+//Configure redis client
+const redisClient = redis.createClient({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    password: process.env.REDIS_PASSWORD
+})
+redisClient.on('error', function (err) {
+    console.log('Could not establish a connection with redis. ' + err);
+});
+redisClient.on('connect', function (err) {
+    console.log('Connected to redis successfully');
+});
+app.use(session({
+  store: new RedisStore({ client: redisClient }),
+  secret: process.env.REDIS_PASSWORD,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      secure: false, // if true only transmit cookie over https
+      httpOnly: false, // if true prevent client side JS from reading the cookie 
+      maxAge: 1000 * 60 * 10 // session max age in miliseconds
+  }
+}))
 
 let passport = PassportConfig.init({
   GoogleSettings: {
