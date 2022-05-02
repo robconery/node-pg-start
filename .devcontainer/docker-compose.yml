@@ -11,11 +11,21 @@ services:
         # Use -bullseye variants on local arm64/Apple Silicon.
         VARIANT: 16-bullseye
     environment:
-      # DATABASE_URL: "postgres://postgres:postgres@db/postgres"
+      DATABASE_URL: "postgres://postgres:postgres@db/postgres"
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: Password123
-      
+      GOOGLE_ID: "GET ONE FROM GOOGLE"
+      GOOGLE_SECRET: "GET FROM GOOGLE"
+
+      GITHUB_ID: "GET FROM GITHUB"
+      GITHUB_SECRET: "GET FROM GITHUB"
+
+      SMTP_HOST: "smtp.mailgun.org"
+      SMTP_PORT: 465
+      SMTP_USER: "postmaster@YOURDOMAIN"
+      SMTP_PASSWORD: "YOUR PASSWORD"
+
     volumes:
       - ..:/workspace:cached
       

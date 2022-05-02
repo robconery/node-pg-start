@@ -7,9 +7,9 @@
 	"service": "app",
 	"workspaceFolder": "/workspace",
 	
-	"remoteEnv": {
-		"DATABASE_URL" : "postgres://postgres:postgres@db/postgres"
-	},
+	// "remoteEnv": {
+	// 	"DATABASE_URL" : "postgres://postgres:postgres@db/postgres"
+	// },
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
 
