@@ -32,21 +32,18 @@ SMTP_USER="postmaster@YOURDOMAIN"
 SMTP_PASSWORD="YOUR PASSWORD"
 ```
 
-Pop these into a `.env` file in the project root so they can be read by the app on boot.
+If you're running a Remote Container, you can find these in `.devcontainer/docker-compose.yml`. Update them there and rebuild.
 
-The last entry there is for the CLI that works with this app - specifically the Azure stuff. You can see what's going on by entering `azure` in the root of this app. Make sure your ENV stuff is loaded first.
+
+If you're running locally, pop these into a `.env` file in the project root so they can be read by the app on boot. There's a `sample.env` file in the root you can rename if you like.
+
 
 ## Azure Deployment
 
 If you want to push this to Azure you'll need to:
 
- - Make sure you have an account and the CLI installed on your local machine
+ - Make sure you have an account and the Azure CLI installed on your local machine
  - Do a `printenv` and make sure you ENV variables are set
 
-If all of that is ready to roll, just start things off with `azure`. You'll be prompted to answer what location you want to use and what SKUs you want to deploy to.
+I have a little project called [AZX](https://github.com/robconery/azx) that can make deployment extremely simple. Go have a look!
 
-When that's done you can see your setup using `azure info` and then you can setup Azure itself using `azure init`, which will setup your infrastructure on Azure according to your choices.
-
-If you goof up, you can destroy everything using `azure destroy`. See the CLI help stuff for more `azure --help`. 
-
-I'll add a lot more to this as I round it out.
