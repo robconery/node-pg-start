@@ -8,14 +8,22 @@
 	"workspaceFolder": "/workspace",
 	
 	// "remoteEnv": {
-	// 	"DATABASE_URL" : "postgres://postgres:postgres@db/postgres"
+	// 	"DATABASE_URL" : "${localEnv:DATABASE_URL}"
 	// },
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"dbaeumer.vscode-eslint"
+		"dbaeumer.vscode-eslint",
+		"ms-azuretools.vscode-cosmosdb",
+		"bradymholt.pgformatter",
+		"DigitalBrainstem.javascript-ejs-support",
+		"TaodongWu.ejs-snippets",
+		"j69.ejs-beautify",
+		"bradlc.vscode-tailwindcss",
+		"austenc.tailwind-docs",
+		"cweijan.vscode-database-client2"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// This can be used to network with other containers or with the host.
