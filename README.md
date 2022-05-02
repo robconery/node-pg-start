@@ -3,8 +3,11 @@
 This is a work in progress and I'll be filling this README out a bit more, but if you want to play around right now here's what you'll need to do...
 
  - Clone this repo and install Node modules
- - Optionally have Postgres up and running locally
+ - Install the Remote Containers extension
+ - Make sure you have Docker running
  - Setup your ENV stuff
+
+If you don't want to use Docker/Remote containers that's fine you can use the docker-compose.yml file in the `.devcontainer` directory directly OR you can just update your ENV settings with your local credentials. 
 
 ## ENV Variables
 
@@ -12,6 +15,11 @@ You'll need a few if you want everything to work right, and those are:
 
 ```
 DATABASE_URL="postgres://localhost/tailwind"
+
+REDIS_HOST=""
+REDIS_PORT=""
+REDIS_PASSWORD=""
+
 GOOGLE_ID="GET ONE FROM GOOGLE"
 GOOGLE_SECRET="GET FROM GOOGLE"
 
@@ -21,9 +29,7 @@ GITHUB_SECRET="GET FROM GITHUB"
 SMTP_HOST="smtp.mailgun.org"
 SMTP_PORT=465
 SMTP_USER="postmaster@YOURDOMAIN"
-SMTP_PASSWORD="SMTPPASS-aa4b0867-4fa1f484"
-
-alias azure="node ./bin/azure.js"
+SMTP_PASSWORD="YOUR PASSWORD"
 ```
 
 Pop these into a `.env` file in the project root so they can be read by the app on boot.
