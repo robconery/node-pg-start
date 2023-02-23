@@ -39,7 +39,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.7.3",
     "request": "^2.88.2",
-    "sequelize": "^6.17.0",
+    "sequelize": "^6.28.2",
     "shortid": "^2.2.16",
     "uuid": "^3.4.0"
   },
