@@ -6,7 +6,7 @@
     "azure-starter": "./bin/index.js"
   },
   "scripts": {
-    "test": "mocha --recursive --require test/helpers",
+    "test": "export NODE_ENV=test && mocha --recursive --require test/helpers",
     "dev": "nodemon ./bin/www",
     "start": "node ./bin/www",
     "css": "postcss css/tailwind.css -o public/css/tailwind.css"
@@ -41,6 +41,7 @@
     "request": "^2.88.2",
     "sequelize": "^6.17.0",
     "shortid": "^2.2.16",
+    "sqlite3": "^5.1.7",
     "uuid": "^3.4.0"
   },
   "devDependencies": {

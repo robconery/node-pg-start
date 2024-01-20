@@ -37,6 +37,9 @@ If you're running a Remote Container, you can find these in `.devcontainer/docke
 
 If you're running locally, pop these into a `.env` file in the project root so they can be read by the app on boot. There's a `sample.env` file in the root you can rename if you like.
 
+## Testing
+
+Testing is setup to use SQLite in-memory, just make sure that you use `npm run test` which will set the `NODE_ENV` variable to `test`.
 
 ## Azure Deployment
 
