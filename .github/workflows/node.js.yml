@@ -13,6 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
@@ -25,38 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        run: |
-          docker run --rm \
-            -p 5432:5432 \
-            -e POSTGRES_USER=user \
-            -e POSTGRES_HOST_AUTH_METHOD=trust \
-            -e POSTGRES_DB=red4 \
-            --name postgres \
-            -d postgres
-
-          until [ `docker ps --filter "name=postgres" --format "{{.Names}}"` ]; do
-              echo "waiting for postgres container...";
-              sleep 1;
-          done;
-
-          until [ "`docker inspect -f {{.State.Status}} postgres`" = "running" ]; do
-              echo "waiting for postgres container to be running...";
-              sleep 1;
-          done;
-
-          echo "sleep 5 seconds"
-          sleep 5
-
-          export PGHOST=localhost
-          export PGUSER=user
-
-          cd server
-
-          cat >.env <<EOL
-          DATABASE_URL=postgres://localhost/red4;
-          EOL
-
-          npm ci
-          npm run test
-
-          docker rm -f postgres
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test

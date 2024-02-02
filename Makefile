@@ -4,6 +4,9 @@ web:
 css:
 	npm run css
 
+build:
+	docker build -t node-start .
+
 sense:
 	open https://$(APPNAME).scm.azurewebsites.net
 
