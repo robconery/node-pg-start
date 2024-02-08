@@ -44,7 +44,7 @@ const sendEmail = function(subject, to, content){
   //don't send test emails!
   if(process.env.NODE_ENV !== "test"){
     return daemon.sendMail({
-      from: '"Rob Conery 😺" <robconery@gmail.com>', // sender address - obvs change
+      from: process.env.SEND_FROM, // sender address - obvs change
       to: to, // list of receivers
       subject: subject, // Subject line
       html: content
