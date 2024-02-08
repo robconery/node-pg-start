@@ -15,10 +15,7 @@ const PassportConfig = require("./config/passport");
 const Mail = require("./mail");
 const app = express();
 
-//the bootup/startup file for stuff I've added to the app
-//const boot = require("./config/boot");
-
-  // view engine setup
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
