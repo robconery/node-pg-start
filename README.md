@@ -30,6 +30,8 @@ SMTP_HOST="smtp.mailgun.org"
 SMTP_PORT=465
 SMTP_USER="postmaster@YOURDOMAIN"
 SMTP_PASSWORD="YOUR PASSWORD"
+
+DEFAULT_REPLY_TO="test@test.com"
 ```
 
 If you're running a Remote Container, you can find these in `.devcontainer/docker-compose.yml`. Update them there and rebuild.

@@ -7,6 +7,7 @@ let daemon = null;
 var md = require('markdown-it')();
 const {User} = require("../lib/models/");
 const settings = require("../package.json");
+const assert = require("assert");
 
 exports.init = function({host, user, password}){
   daemon = nodemailer.createTransport({
@@ -43,8 +44,9 @@ const renderMarkdownTemplate = async function(template, data = {}){
 const sendEmail = function(subject, to, content){
   //don't send test emails!
   if(process.env.NODE_ENV !== "test"){
+    assert(process.env.DEFAULT_SEND_FROM, "Be sure to set an ENV var for SEND_FROM.");
     return daemon.sendMail({
-      from: '"Rob Conery 😺" <robconery@gmail.com>', // sender address - obvs change
+      from: process.env.DEFAULT_SEND_FROM, // sender address - obvs change
       to: to, // list of receivers
       subject: subject, // Subject line
       html: content
