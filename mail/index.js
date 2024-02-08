@@ -44,9 +44,9 @@ const renderMarkdownTemplate = async function(template, data = {}){
 const sendEmail = function(subject, to, content){
   //don't send test emails!
   if(process.env.NODE_ENV !== "test"){
-    assert(process.env.SEND_FROM, "Be sure to set an ENV var for SEND_FROM.");
+    assert(process.env.DEFAULT_SEND_FROM, "Be sure to set an ENV var for SEND_FROM.");
     return daemon.sendMail({
-      from: process.env.SEND_FROM, // sender address - obvs change
+      from: process.env.DEFAULT_SEND_FROM, // sender address - obvs change
       to: to, // list of receivers
       subject: subject, // Subject line
       html: content
