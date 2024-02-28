@@ -8,8 +8,8 @@ Welcome to MyAPI! Here you'll find all the documentation you need to get up and 
 
 Feeling like an eager beaver? Jump in to the quick start docs and get making your first request:
 
-{% content-ref url="quick-start.md" %}
-[quick-start.md](quick-start.md)
+{% content-ref url="trying-out-gitbook.md" %}
+[trying-out-gitbook.md](trying-out-gitbook.md)
 {% endcontent-ref %}
 
 ## Want to deep dive?

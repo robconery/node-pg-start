@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Welcome!](README.md)
-* [Quick Start](quick-start.md)
+* [Trying Out Gitbook](trying-out-gitbook.md)
 
 ## Reference
 
