@@ -1,10 +1,7 @@
 {
-  "name": "azure-starter",
+  "name": "node-pg-start",
   "version": "0.0.0",
   "private": true,
-  "bin": {
-    "azure-starter": "./bin/index.js"
-  },
   "scripts": {
     "test": "export NODE_ENV=test && mocha --recursive --require test/helpers",
     "dev": "nodemon ./bin/www",
@@ -49,18 +46,5 @@
     "mocha": "^9.2.2",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.2.0"
-  },
-  "azure": {
-    "resourceGroup": "rough-cloud-91",
-    "appName": "rough-cloud-91-web",
-    "location": "westus",
-    "planName": "rough-cloud-91-web-plan",
-    "runtime": "NODE|10.14",
-    "deployUser": "rough-cloud-91-web-deployer",
-    "dbServerName": "rough-cloud-91-pg",
-    "dbUser": "admin_937",
-    "webSku": "B1",
-    "dbSku": "B_Gen5_1",
-    "siteUrl": "https://rough-cloud-91-web.azurewebsites.net"
   }
 }
