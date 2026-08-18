@@ -1,54 +1,121 @@
-# The Tailwind Traders Node/PG Starter Site (Preview)
+# Node PG Starter 🚀
 
-This is a work in progress and I'll be filling this README out a bit more, but if you want to play around right now here's what you'll need to do...
+![Node.js](https://img.shields.io/badge/Node.js-Ready-green) ![Express](https://img.shields.io/badge/Express-4.x-lightgrey) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Enabled-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8) ![Mocha](https://img.shields.io/badge/Tests-Mocha-yellow) ![License](https://img.shields.io/badge/License-ISC-blue)
 
- - Clone this repo and install Node modules
- - Install the Remote Containers extension
- - Make sure you have Docker running
- - Setup your ENV stuff
+A small Express starter application for building a Node.js site with PostgreSQL, Redis-backed sessions, Tailwind CSS, and authentication flows.
 
-If you don't want to use Docker/Remote containers that's fine you can use the docker-compose.yml file in the `.devcontainer` directory directly OR you can just update your ENV settings with your local credentials. 
+## ✨ What this project includes
 
-## ENV Variables
+- Express server with EJS views
+- Sequelize models and PostgreSQL support
+- Redis-backed session handling
+- Tailwind-based UI styling
+- Magic-link authentication and OAuth login for Google and GitHub
+- SMTP mail support
+- Mocha-based test setup
+- Docker support via the included Dockerfile
 
-You'll need a few if you want everything to work right, and those are:
+## 🧰 Prerequisites
 
-```
+Before getting started, make sure you have:
+
+- Node.js and npm installed
+- PostgreSQL running locally or available remotely
+- Redis running locally or available remotely
+- Docker optional, if you want to use the container setup
+
+## 🚀 Quick start
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd node-pg-start
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create your environment file:
+   ```bash
+   cp sample.env .env
+   ```
+4. Update the values in `.env` for your local setup.
+5. Start the app:
+   ```bash
+   npm run dev
+   ```
+
+The application should then be available locally through the configured Express server.
+
+## ⚙️ Environment variables
+
+Create a `.env` file in the project root with values similar to the following:
+
+```env
 DATABASE_URL="postgres://localhost/tailwind"
 
 REDIS_HOST=""
 REDIS_PORT=""
 REDIS_PASSWORD=""
 
-GOOGLE_ID="GET ONE FROM GOOGLE"
-GOOGLE_SECRET="GET FROM GOOGLE"
+GOOGLE_ID="YOUR_GOOGLE_CLIENT_ID"
+GOOGLE_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
 
-GITHUB_ID="GET FROM GITHUB"
-GITHUB_SECRET="GET FROM GITHUB"
+GITHUB_ID="YOUR_GITHUB_CLIENT_ID"
+GITHUB_SECRET="YOUR_GITHUB_CLIENT_SECRET"
 
 SMTP_HOST="smtp.mailgun.org"
 SMTP_PORT=465
 SMTP_USER="postmaster@YOURDOMAIN"
-SMTP_PASSWORD="YOUR PASSWORD"
+SMTP_PASSWORD="YOUR_PASSWORD"
 
 DEFAULT_REPLY_TO="test@test.com"
 ```
 
-If you're running a Remote Container, you can find these in `.devcontainer/docker-compose.yml`. Update them there and rebuild.
+If you are using the container-based setup, the same values can be configured in the container configuration and the container rebuilt.
 
+## 🔐 Authentication
 
-If you're running locally, pop these into a `.env` file in the project root so they can be read by the app on boot. There's a `sample.env` file in the root you can rename if you like.
+The app supports:
 
-## Testing
+- Magic-link sign-in via email
+- OAuth login with Google
+- OAuth login with GitHub
 
-Testing is setup to use SQLite in-memory, just make sure that you use `npm run test` which will set the `NODE_ENV` variable to `test`.
+To use the OAuth providers, set the corresponding client ID and secret values in your environment file.
 
-## Azure Deployment
+## 🎨 Build CSS
 
-If you want to push this to Azure you'll need to:
+To rebuild the Tailwind stylesheet:
 
- - Make sure you have an account and the Azure CLI installed on your local machine
- - Do a `printenv` and make sure you ENV variables are set
+```bash
+npm run css
+```
 
-I have a little project called [AZX](https://github.com/robconery/azx) that can make deployment extremely simple. Go have a look!
+## 🧪 Testing
+
+Tests are configured to run with Mocha. Use:
+
+```bash
+npm test
+```
+
+## 📁 Project structure
+
+A few key directories:
+
+- `routes/` — route handlers
+- `lib/models/` — Sequelize models
+- `views/` — EJS templates
+- `public/` — static assets and compiled frontend files
+- `config/` — authentication and app configuration
+- `mail/` — mail sending helpers and templates
+
+## 🚢 Deployment
+
+For Azure deployment, make sure you have an Azure account and the Azure CLI installed locally, and that your environment variables are available to the app runtime.
+
+## 📄 License
+
+This project is distributed under the terms described in [LICENSE.md](LICENSE.md).
 
